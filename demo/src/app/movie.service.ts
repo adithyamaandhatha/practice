@@ -11,7 +11,7 @@ interface Movie {
  providedIn: 'root'
 })
 export class MovieService {
- private apiUrl = 'http://localhost:3000/movies'; //OR We can have it from Environment
+ private apiUrl = 'https://probable-waffle-w4jx5rgrw9wh57jq-3000.app.github.dev/movies'; //OR We can have it from Environment
  constructor(private http: HttpClient) {}
  // Get all movies
  getMovies(): Observable<Movie[]> {
@@ -26,8 +26,8 @@ export class MovieService {
  return this.http.post<Movie>(this.apiUrl, movie);
  }
  // Update an existing movie
- updateMovie(movie: Movie): Observable<Movie> {
- return this.http.put<Movie>(`${this.apiUrl}/${movie.id}`, movie);
+ updateMovie(id:number,movie:Movie): Observable<Movie> {
+ return this.http.put<Movie>(`${this.apiUrl}/${id}`, movie);
  }
  // Delete a movie
  deleteMovie(id: number): Observable<void> {

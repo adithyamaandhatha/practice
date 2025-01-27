@@ -11,11 +11,14 @@ export class MovieListComponent implements OnInit {
  constructor(private movieService: MovieService, private router: Router) {}
  ngOnInit(): void {
  this.movieService.getMovies().subscribe((data) => {
- this.movies = data;
+     this.movies = data;
+     console.log(this.movies);
  });
  }
  deleteMovie(id: number): void {
+    console.log(id);
  this.movieService.deleteMovie(id).subscribe(() => {
+    
  this.movies = this.movies.filter((movie:any) => movie.id !== id);
  });
  }

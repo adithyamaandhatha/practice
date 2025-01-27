@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class MovieAddComponent {
  movieForm: any;
+ movies:any= [];
+ movieId:any;
  constructor(
  private fb: FormBuilder,
  private movieService: MovieService,
@@ -23,9 +25,19 @@ Date().getFullYear())]]
  }
  addMovie(): void {
  if (this.movieForm.valid) {
- this.movieService.createMovie(this.movieForm.value).subscribe(() => {
+ this.movieService.getMovies().subscribe((res)=> {
+    this.movies = res;
+    console.log(this.movies);
+ this.movieId = +this.movies[this.movies.length-1].id+1;
+ let strId = this.movieId+''
+//  console.log(this.movieId);
+// this.movieId =
+ this.movieService.createMovie({...this.movieForm.value,id:strId}).subscribe(() => {
  this.router.navigate(['/']);
  });
+    
+ });
+ 
  }
  }
 }

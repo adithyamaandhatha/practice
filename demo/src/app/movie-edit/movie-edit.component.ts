@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class MovieEditComponent implements OnInit {
  movieForm: FormGroup;
- movieId: number | undefined;
+ movieId: any ;
  constructor(
  private fb: FormBuilder,
  private movieService: MovieService,
@@ -25,13 +25,14 @@ Date().getFullYear())]]
  }
  ngOnInit(): void {
  this.movieId = +this.route.snapshot.paramMap.get('id')!;
+ //console.log(this.movieId)
  this.movieService.getMovie(this.movieId).subscribe(movie => {
  this.movieForm.patchValue(movie);
  });
  }
  updateMovie(): void {
  if (this.movieForm.valid) {
- this.movieService.updateMovie(this.movieForm.value).subscribe(() => {
+ this.movieService.updateMovie(this.movieId,this.movieForm.value).subscribe(() => {
  this.router.navigate(['/']);
  });
  }
